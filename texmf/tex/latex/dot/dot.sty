@@ -1,0 +1,32 @@
+\ProvidesPackage{dot}
+\RequirePackage{hyperref}
+\RequirePackage{pythontex}
+\setpythontexoutputdir{.}
+
+\pyc{import dot.api as api}
+\newcommand{\dotget}[1]{\pyc{p = api.get("#1")}}
+\newcommand{\dotprint}{\py{p.bodies[0]}}
+\newcommand{\dotsol}{\py{p.bodies[1] if len(p.bodies) > 1 else f"{p.source} has no solution"}}
+
+\newcommand{\dotenvname}{problem}
+\newcommand{\dotsourcelink}
+{\py{src if p.url is None else (r'\href{' + p.url + '}{' + src + '}')}}
+\newcommand{\dotsourcehook}{\dotsourcelink}
+\newcommand{\dotposthook}{}
+
+\def\Dot{\@ifstar\@dotstarred\@dotunstarred}
+\newcommand{\@dotunstarred}[2][]{
+  \dotget{#2}
+  \pyc{src = "#1" or "#2"}
+  \begin{\dotenvname}[\dotsourcehook]
+    \dotprint
+  \end{\dotenvname}
+  \dotposthook
+}
+\newcommand{\@dotstarred}[1]{
+  \dotget{#1}
+  \begin{\dotenvname}
+    \dotprint
+  \end{\dotenvname}
+  \dotposthook
+}

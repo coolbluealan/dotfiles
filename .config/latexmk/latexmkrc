@@ -1,0 +1,18 @@
+$pdflatex = "pdflatex -file-line-error -halt-on-error -interaction=nonstopmode -synctex=1";
+$lualatex = "lualatex --file-line-error --halt-on-error --interaction=nonstopmode --synctex=1";
+
+sub run_asy {
+    return system("asy -o \$(dirname \"$_[0]\") \"$_[0]\"");
+}
+add_cus_dep("asy", "pdf", 0, "run_asy");
+
+sub pythontex {
+    return system("pythontex \"$_[0]\"");
+}
+add_cus_dep('pytxcode', 'tex', 0, 'pythontex');
+
+$pdf_mode = 4;
+$pdf_previewer = "start zathura %O %S";
+
+$do_cd = 1;
+$silent = 1;

@@ -1,0 +1,70 @@
+[user]
+  name = Alan Cheng
+  email = coolbluealan@gmail.com
+  signingKey = ~/.ssh/id_ed25519.pub
+[commit]
+  gpgSign = true
+  verbose = true
+[core]
+  editor = nvim
+  pager = delta
+[delta]
+  file-decoration-style = cyan box
+  file-style = cyan bold
+  hunk-header-decoration-style = blue ul
+  hunk-header-line-number-style = yellow
+  hunk-header-style = line-number
+  hyperlinks = true
+  line-numbers = true
+  line-numbers-minus-style = red bold
+  line-numbers-plus-style = green bold
+  line-numbers-zero-style = gray
+  navigate = true
+  syntax-theme = OneHalfDark
+[diff]
+  colorMoved = default
+[gpg]
+  format = ssh
+[init]
+  defaultBranch = main
+[interactive]
+  diffFilter = delta --color-only
+[merge]
+  conflictStyle = diff3
+[pull]
+  rebase = true
+[push]
+  autoSetupRemote = true
+[tag]
+  gpgSign = true
+
+# Aliases
+[alias]
+  ls = log -32 --pretty=format:"%C(yellow)%h\\ %C(green)[%cd]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=short
+  lo = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(green)[%cd]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=short
+  ll = lo --stat
+  lt =  log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
+
+  br = branch
+  cm = commit
+  cma = commit -a
+  cme = commit --amend
+  co = checkout
+
+  rb = rebase -i
+  sub = submodule
+  spull = submodule update --init --recursive
+
+  d = diff
+  ds = diff --staged
+  s = status -sb
+
+# Color
+[color "branch"]
+  current = yellow reverse
+  local = green
+  remote = blue
+[color "status"]
+  added = cyan
+  changed = yellow
+  untracked = red

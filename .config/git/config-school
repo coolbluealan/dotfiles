@@ -1,0 +1,6 @@
+[user]
+  name = Alan Cheng
+  email = cheng26a@ncssm.edu
+  signingKey = ~/.ssh/id_ed25519_ssm.pub
+
+# vim: ft=gitconfig

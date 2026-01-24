@@ -1,0 +1,209 @@
+# Windows key as modifier
+set $mod Mod4
+set $i3 $HOME/.config/i3/scripts
+set $scripts $HOME/dotfiles/scripts
+
+font pango: Inconsolata 14
+
+default_border pixel
+hide_edge_borders smart
+gaps inner 8
+
+floating_modifier $mod
+focus_follows_mouse no
+focus_on_window_activation focus
+workspace_auto_back_and_forth yes
+
+# audio
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +5 --max-volume 100
+bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5
+bindsym XF86AudioMute        exec --no-startup-id pulsemixer --toggle-mute
+
+# backlight
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 5
+
+# border color {{{
+  # catppuccin frappe
+  set $crust    #232634
+  set $green    #a6d189
+  set $red      #e78284
+  set $sapphire  #85c1dc
+  set $surface1 #51576d
+  set $text     #c6d0f5
+  set $text0    #a5adce
+
+  # class                  border     bground    text    indicator  child_border
+  client.focused           $green     $surface1  $text   $sapphire   $green
+  client.focused_inactive  $surface1  $surface1  $text   $sapphire   $surface1
+  client.unfocused         $surface1  $crust     $text0  $sapphire   $surface1
+  client.urgent            $red       $crust     $text   $sapphire   $red
+  client.placeholder       $surface1  $surface1  $text   $sapphire   $surface1
+  client.background        $crust
+# }}}
+
+# misc {{{
+  bindsym $mod+Return exec --no-startup-id alacritty
+  bindsym $mod+d exec rofi -show drun
+  bindsym $mod+w exec rofi -show window
+  bindsym $mod+braceleft exec --no-startup-id dunstctl history-pop
+  bindsym --release $mod+Shift+q kill
+# }}}
+
+# hjkl navigation {{{
+  # change focus
+  bindsym $mod+h focus left
+  bindsym $mod+j focus down
+  bindsym $mod+k focus up
+  bindsym $mod+l focus right
+
+  # move focused window
+  bindsym $mod+Shift+h move left
+  bindsym $mod+Shift+j move down
+  bindsym $mod+Shift+k move up
+  bindsym $mod+Shift+l move right
+# }}}
+
+# window layouts {{{
+  # fullscreen
+  bindsym $mod+f fullscreen toggle
+
+  # container layout (stacked, tabbed, toggle split)
+  bindsym $mod+e layout toggle split
+  bindsym $mod+s layout stacking
+  bindsym $mod+t layout tabbed
+  bindsym $mod+v split h
+  bindsym $mod+z split v
+
+  workspace_layout stacking
+
+  # toggle tiling / floating
+  bindsym $mod+period floating toggle
+  # focus tiling / floating
+  bindsym $mod+Tab focus mode_toggle
+
+  # focus parent/child container
+  bindsym $mod+a focus parent
+  bindsym $mod+b focus child
+# }}}
+
+# workspace switching {{{
+  bindsym $mod+1 workspace number 1
+  bindsym $mod+2 workspace number 2
+  bindsym $mod+3 workspace number 3
+  bindsym $mod+4 workspace number 4
+  bindsym $mod+5 workspace number 5
+  bindsym $mod+6 workspace number 6
+  bindsym $mod+7 workspace number 7
+  bindsym $mod+8 workspace number 8
+  bindsym $mod+9 workspace number 9
+  bindsym $mod+0 workspace number 0
+
+  bindsym $mod+Shift+1 move container to workspace number 1
+  bindsym $mod+Shift+2 move container to workspace number 2
+  bindsym $mod+Shift+3 move container to workspace number 3
+  bindsym $mod+Shift+4 move container to workspace number 4
+  bindsym $mod+Shift+5 move container to workspace number 5
+  bindsym $mod+Shift+6 move container to workspace number 6
+  bindsym $mod+Shift+7 move container to workspace number 7
+  bindsym $mod+Shift+8 move container to workspace number 8
+  bindsym $mod+Shift+9 move container to workspace number 9
+  bindsym $mod+Shift+0 move container to workspace number 0
+
+  bindsym $mod+Right workspace next
+  bindsym $mod+Left workspace prev
+  bindsym $mod+Shift+Right move container to workspace next
+  bindsym $mod+Shift+Left move container to workspace prev
+# }}}
+
+# nudge {{{
+mode "nudge" {
+  bindsym a focus parent
+  bindsym b focus child
+
+  bindsym h move left
+  bindsym j move down
+  bindsym k move up
+  bindsym l move right
+
+  bindsym 1 move container to workspace number 1
+  bindsym 2 move container to workspace number 2
+  bindsym 3 move container to workspace number 3
+  bindsym 4 move container to workspace number 4
+  bindsym 5 move container to workspace number 5
+  bindsym 6 move container to workspace number 6
+  bindsym 7 move container to workspace number 7
+  bindsym 8 move container to workspace number 8
+  bindsym 9 move container to workspace number 9
+  bindsym 10 move container to workspace number 10
+
+  # resizing
+  bindsym n resize shrink width 5 px or 5 ppt
+  bindsym w resize grow width 5 px or 5 ppt
+  bindsym s resize shrink height 5 px or 5 ppt
+  bindsym t resize grow height 5 px or 5 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+n exec --no-startup-id $i3/reminder-nudge.sh, mode "nudge"
+# }}}
+
+# clipboard {{{
+mode "clipboard" {
+  bindsym p exec --no-startup-id sleep 0.2 && xdotool type "$(xclip -o -selection primary)", mode "default"
+  bindsym s exec --no-startup-id sleep 0.2 && xdotool type "$(xclip -o -selection secondary)", mode "default"
+  bindsym v exec --no-startup-id sleep 0.2 && xdotool type "$(xclip -o -selection clipboard)", mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+p mode "clipboard"
+# }}}
+
+# power mode {{{
+mode "power" {
+  bindsym e exit
+  bindsym l exec --no-startup-id $i3/i3lock.sh, mode "default"
+  bindsym p exec --no-startup-id systemctl poweroff
+  bindsym r exec --no-startup-id systemctl reboot
+  bindsym s exec --no-startup-id systemctl suspend, mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+Shift+BackSpace exec --no-startup-id $i3/reminder-power.sh, mode "power"
+# }}}
+
+# config mode {{{
+mode "config" {
+  bindsym r reload
+  bindsym Shift+r restart
+  bindsym c exec --no-startup-id xdotool key Caps_Lock, mode "default"
+  bindsym k exec --no-startup-id xset r rate 200 30, mode "default"
+  bindsym w exec --no-startup-id ~/.fehbg, mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+c exec --no-startup-id $i3/reminder-config.sh, mode "config"
+# }}}
+
+# execute mode {{{
+mode "exec" {
+  bindsym f exec firefox, mode "default"
+  bindsym g exec geogebra, mode "default"
+  # hanabi
+  bindsym h exec chromium, mode "default"
+  bindsym n exec nvim-qt, mode "default"
+  bindsym p exec firefox --private-window, mode "default"
+  bindsym t exec thunar, mode "default"
+  bindsym z exec zathura, mode "default"
+  bindsym equal exec --no-startup-id dunstctl close-all, exec flameshot gui, mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+space exec --no-startup-id $i3/reminder-exec.sh, mode "exec"
+# }}}
+
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+# vim: ft=i3config foldmethod=marker

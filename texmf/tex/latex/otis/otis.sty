@@ -1,0 +1,26 @@
+\ProvidesPackage{otis}
+\RequirePackage[hdr]{alan}
+\RequirePackage{dot}
+
+\hypersetup{pdfsubject=OTIS}
+\cleartheorem{problem}
+\declaretheorem[style=thmredbox,name=Problem]{problem}
+
+\RequirePackage{epigraph}
+\renewcommand{\epigraphsize}{\scriptsize}
+\renewcommand{\epigraphwidth}{60ex}
+\reversemarginpar
+
+\newcommand{\pset}[1]{
+  \title{Submission for #1}
+  \subtitle{OTIS (internal use)}
+  \author{Alan Cheng}
+  \maketitle
+}
+
+\renewcommand{\dotposthook}{
+  \pyc{puid = api.get_puid(p.source)}
+  \py{r'\marginpar{\href{https://otis.evanchen.cc/arch/' + puid + r'}
+      {\ttfamily\footnotesize\color{green!40!black}' + puid + '}}'}
+  \dotsol
+}

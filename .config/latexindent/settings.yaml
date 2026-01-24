@@ -1,0 +1,23 @@
+defaultIndent: "  "
+itemNames:
+  ii: 1
+indentRules:
+  ii: "    "
+lookForAlignDelims:
+  align*:
+    alignDoubleBackSlash: 0
+    alignRowsWithoutMaxDelims: 0
+  align:
+    alignDoubleBackSlash: 0
+    alignRowsWithoutMaxDelims: 0
+  array:
+    alignDoubleBackSlash: 0
+    alignRowsWithoutMaxDelims: 0
+  tabular:
+    alignDoubleBackSlash: 0
+    alignRowsWithoutMaxDelims: 0
+noAdditionalIndent:
+  problem: 0
+verbatimEnvironments:
+  asy: 1
+  asydef: 1

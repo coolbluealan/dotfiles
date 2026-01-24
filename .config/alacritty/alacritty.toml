@@ -1,0 +1,17 @@
+
+[font]
+size = 13.0
+
+[font.normal]
+family = "Hack Nerd Font"
+style = "Regular"
+
+[window]
+opacity = 0.9
+
+[window.padding]
+x = 5
+y = 5
+
+[general]
+import = ["/home/alancheng/.config/alacritty/catppuccin-macchiato.toml"]

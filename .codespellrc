@@ -1,0 +1,4 @@
+[codespell]
+count =
+ignore-words-list = ques
+skip = .config/nvim/autoload/plug.vim,.config/nvim/lua/plugins/telescope.lua,.config/fcitx5/*
