@@ -41,8 +41,14 @@ return {
 
     return {
       formatting = {
+        fields = { "abbr", "kind", "menu" },
         format = require("lspkind").cmp_format({
-          mode = "symbol_text",
+          maxwidth = {
+            abbr = 50,
+            menu = 30,
+          },
+          ellipsis_char = "...",
+          show_labelDetails = true,
           menu = {
             buffer = "[Buf]",
             luasnip = "[Snip]",

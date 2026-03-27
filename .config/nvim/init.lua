@@ -56,4 +56,4 @@ require("lazy").setup({
   change_detection = { notify = false },
 })
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("catppuccin-nvim")

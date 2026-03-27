@@ -1,0 +1,3 @@
+return {
+  "kiyoon/jupynium.nvim",
+}
