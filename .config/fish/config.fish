@@ -140,6 +140,11 @@ function t
     nvim tests/$argv.{input,answer}
 end
 
+function c
+    g++ -Wall -Wextra -Wconversion -Wshadow -Wfloat-equal \
+        -fsanitize=address -fsanitize=undefined -fmax-errors=1 -g -O2 -std=c++17 $argv
+end
+
 function pdf --wraps=zathura
     set head (echo $argv | cut -f 1 -d '.')
     if string match '*.pdf' $argv >/dev/null; and test -f $argv
